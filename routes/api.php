@@ -16,8 +16,17 @@ use App\Models\Post;
 |
 */
 
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('posts',PostController::class);
+
+Route::group(["middleware" => "apikey.validate"], function () {
+
+    Route::apiResource('posts',PostController::class);
+  
+});
+  
+
