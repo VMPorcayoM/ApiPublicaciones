@@ -4,14 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\PostResource;
-use App\Models\Post;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
-
-
-    private $path_imagen = "storage/imagen/";
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::all());
+        //
     }
 
     /**
@@ -29,29 +24,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {     
-        $niceNames = ['linkimagen' => "La imagen del artículo"];
-        
-
-        $file = $request->linkimagen;
-        if($file != null){
-            $nombreImagen = time() . '.' . $file->getClientOriginalExtension();
-            Storage::disk('local')->put('public/imagen/' . $nombreImagen, File::get($file));
-        }else{
-            $nombreImagen=null;
-        }
-        $post = new Post();
-        $post->name = $request->name;
-        $post->post = $request->post;
-        if($nombreImagen!=null)
-            $post->img = $path_imagen . $nombreImagen;
-        else
-            $post->img = $nombreImagen;
-        $post->save();
-        return response()->json($post, 200);   
-
-        //return new PostResource(Post::create($request->all()));
-        
+    {
+        //
     }
 
     /**
@@ -60,7 +34,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_post)
+    public function show($id)
     {
         return new PostResource(Post::findOrFail($id_post));
     }
@@ -74,7 +48,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**
